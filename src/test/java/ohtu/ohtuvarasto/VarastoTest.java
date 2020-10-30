@@ -64,5 +64,52 @@ public class VarastoTest {
         // varastossa pitäisi olla tilaa 10 - 8 + 2 eli 4
         assertEquals(4, varasto.paljonkoMahtuu(), vertailuTarkkuus);
     }
+    
+    @Test
+    public void eiLisataMiinusta() {
+        varasto.lisaaVarastoon(-1.4);
+        assertEquals(0, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void eiLisataLiikaa() {
+        varasto.lisaaVarastoon(12);
+        assertEquals(10, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void eiOtetaMiinusta() {
+        varasto.lisaaVarastoon(6);
+        varasto.otaVarastosta(-1.2);
+        assertEquals(6, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void eiOtetaLiikaa() {
+        varasto.lisaaVarastoon(6);
+        double otettu = varasto.otaVarastosta(8);
+        assertEquals(6, otettu, vertailuTarkkuus);
+        assertEquals(0, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void varastoMerkkijonoksi() {
+        assertTrue(varasto.toString().equals("saldo = 0.0, vielä tilaa 10.0"));
+    }
+    
+    @Test
+    public void tehdaanErilaisiaVarastojaTesti() {
+        varasto = new Varasto(-2);
+        assertEquals("Varaston koko miinuksella tekee varaston, jolla on väärä tilavuus", 0, varasto.getTilavuus(), vertailuTarkkuus);
+        varasto = new Varasto(10, 5);
+        assertEquals("Varaston (10, 5) tilavuus väärin", 10, varasto.getTilavuus(), vertailuTarkkuus);
+        assertEquals("Varaston (10, 5) saldo väärin", 5, varasto.getSaldo(), vertailuTarkkuus);
+        varasto = new Varasto(2, 5);
+        assertEquals("Ylitäyden varaston saldo väärin", 2, varasto.getSaldo(), vertailuTarkkuus);
+        varasto = new Varasto(2, -1.5);
+        assertEquals("Varaston alkusaldo miinuksella tekee varaston, jolla on väärä alkusaldo", 0, varasto.getSaldo(), vertailuTarkkuus);
+        varasto = new Varasto(-1.5, 2);
+        assertEquals("Varaston koko miinuksella tekee varaston, jolla on väärä tilavuus", 0, varasto.getTilavuus(), vertailuTarkkuus);
+    }
 
 }

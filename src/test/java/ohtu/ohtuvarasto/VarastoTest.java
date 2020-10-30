@@ -66,7 +66,7 @@ public class VarastoTest {
     }
     
     @Test
-    public void eiLisataMiinusta() {
+    publiccc void eiLisataMiinusta() {
         varasto.lisaaVarastoon(-1.4);
         assertEquals(0, varasto.getSaldo(), vertailuTarkkuus);
     }

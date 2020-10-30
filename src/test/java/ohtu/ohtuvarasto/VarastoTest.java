@@ -68,7 +68,7 @@ public class VarastoTest {
     @Test
     public void eiLisataMiinusta() {
         varasto.lisaaVarastoon(-1.4);
-        assertEquals(10, varasto.getSaldo(), vertailuTarkkuus);
+        assertEquals(0, varasto.getSaldo(), vertailuTarkkuus);
     }
     
     @Test
